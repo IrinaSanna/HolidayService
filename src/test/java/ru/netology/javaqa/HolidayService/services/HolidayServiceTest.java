@@ -2,28 +2,18 @@ package ru.netology.javaqa.HolidayService.services;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 public class HolidayServiceTest {
 
-    @Test
-    public void firstCalculation() {
+    @ParameterizedTest
+    @CsvFileSource(files = "src/test/resources/calculate.csv")
+    public void firstCalculation(int expected, int income, int expenses, int threshold) {
         HolidayService service = new HolidayService();
 
-        int expented = 3;
-        int actual = service.calculate(10_000, 3_000, 20_000);
+        int actual = service.calculate(income, expenses, threshold);
 
-        Assertions.assertEquals(expented, actual);
+        Assertions.assertEquals(expected, actual);
     }
-
-    @Test
-    public void secondCalculation() {
-        HolidayService service = new HolidayService();
-
-        int expented = 2;
-        int actual = service.calculate(100_000, 60_000, 150_000);
-
-        Assertions.assertEquals(expented, actual);
-    }
-
-
 }
